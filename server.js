@@ -5,7 +5,7 @@ const E = require('./lib/engine'); const { FIGS, LIST } = require('./lib/figures
 const DB = require('./lib/db');
 const B = require('./lib/board'); const { botDeck, randomDeck, botAct } = require('./lib/bot');
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3000; 
 const MIME = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript', '.css': 'text/css', '.json': 'application/json', '.png': 'image/png', '.svg': 'image/svg+xml' };
 const PUB = path.join(__dirname, 'public');
 
