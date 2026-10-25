@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pokémon Duel Web</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header id="top">
+  <div class="brand"><span class="ball"></span> POKÉMON DUEL <small>web · build v10.24</small></div>
+  <div id="topinfo"></div>
+  <div class="spacer"></div>
+  <button id="btnSnd" class="ghost" title="Sound on/off (M)">🔊</button>
+  <button id="btnHelp" class="ghost">Rules</button>
+  <button id="btnRestart" class="ghost hidden">↻ Restart (random teams)</button>
+  <button id="btnMenu" class="ghost hidden">Leave</button>
+</header>
+
+<main id="lobby" class="screen">
+  <section class="panel hero">
+    <h1>Build a team. Enter the field. Take the goal.</h1>
+    <p>A fan-made browser recreation of the retired mobile game. All 593 figures from your data file are playable.</p>
+    <div class="row">
+      <label>Trainer name <input id="name" maxlength="16" placeholder="Trainer"></label>
+    </div>
+    <div class="row gap">
+      <button id="goCamp" class="primary">⭐ Single-player campaign</button>
+      <button id="goDeck">Free play / multiplayer</button>
+    </div>
+    <p class="muted" id="deckSummary"></p>
+    <div id="conn" class="muted"></div>
+  </section>
+</main>
+
+<main id="camp" class="screen hidden"></main>
+
+<main id="deck" class="screen hidden">
+  <div class="deckgrid">
+    <section class="panel">
+      <div class="filters">
+        <input id="fSearch" placeholder="Search name or type…">
+        <select id="fRarity"><option value="">Rarity</option><option>C</option><option>UC</option><option>R</option><option>UX</option><option>EX</option></select>
+        <select id="fMp"><option value="">MP</option><option>0</option><option>1</option><option>2</option><option>3</option></select>
+      </div>
+      <div id="figGrid" class="figgrid"></div>
+    </section>
+    <section class="panel side">
+      <h3>Your team <span id="teamCount"></span></h3>
+      <div id="slots" class="slots"></div>
+      <div class="row"><button id="rndTeam" class="ghost">Random team</button><button id="clrTeam" class="ghost">Clear</button></div>
+      <h3>Plates <span id="plateCost"></span></h3>
+      <div id="plateList" class="plates"></div>
+      <div id="deckErr" class="err"></div>
+      <h3>Play</h3>
+      <div class="row gap"><button id="btnBot" class="primary">Play vs bot</button><button id="btnCreate" class="primary">Create room</button></div>
+      <div class="row gap"><input id="joinCode" placeholder="ROOM CODE" maxlength="4" style="text-transform:uppercase;width:110px"><button id="btnJoin">Join room</button></div>
+      <div id="waitMsg" class="notice hidden"></div>
+      <div id="infoCard" class="card"></div>
+    </section>
+  </div>
+</main>
+
+<main id="game" class="screen hidden">
+  <div class="gamegrid">
+    <section class="boardwrap">
+      <div id="oppZone" class="zone"></div>
+      <svg id="board" viewBox="0 0 660 675" preserveAspectRatio="xMidYMid meet"></svg>
+      <div id="myZone" class="zone"></div>
+    </section>
+    <aside class="sidebar">
+      <div id="turnBanner" class="banner"></div>
+      <div id="actions" class="panel mini"></div>
+      <div id="info" class="card"></div>
+      <div class="panel mini"><h4>Log</h4><div id="log" class="log"></div></div>
+      <div class="panel mini"><h4>Chat</h4><div id="chat" class="log chat"></div><div class="row"><input id="chatIn" placeholder="Say something…" maxlength="200"><button id="chatSend">Send</button></div></div>
+    </aside>
+  </div>
+  <div id="battleOverlay" class="overlay hidden"></div>
+  <div id="endOverlay" class="overlay hidden"></div>
+</main>
+
+<div id="helpModal" class="overlay hidden"><div class="modal">
+  <h2>How to play</h2>
+  <ul>
+    <li><b>Goal:</b> move any Pokémon onto the opponent's goal (top for you if you're at the bottom; goals can be stood on, and some abilities forbid winning that way).</li>
+    <li><b>Your turn:</b> (1) optionally use a Plate, (2) move ONE Pokémon up to its MP, (3) if you end next to an enemy, a battle happens. Battle ends the turn.</li>
+    <li><b>Entering:</b> Pokémon start on the bench. Entering costs 1 MP and places them on one of your two free entry points (the ringed corners).</li>
+    <li><b>Battles:</b> both wheels spin. White/Gold: higher damage wins, loser is KO'd. Purple effect beats White. Gold beats Purple. Blue blocks everything (including Gold) and knocks out a Miss. Purple vs Purple: more stars wins (tie = nothing). Red (miss) loses to everything but Purple.</li>
+    <li><b>Tagging:</b> if your moved Pokémon ends next to your own Pokémon, their special conditions are removed.</li>
+    <li><b>KO:</b> goes to your P.C. (holds 2). A third KO sends the oldest back to the bench with Wait 1. Surround an enemy on all its neighbouring points to KO it.</li>
+    <li><b>Wait N:</b> can't act for N of its owner's turns. <b>Statuses:</b> poison −20, noxious −40 (both are cured when the Pokémon moves; MP markers come off when it moves or when an ally tags it), paralyzed/burned: smallest segment becomes a Miss, confused: spin lands on a neighbouring segment, asleep/frozen: can't move; defending, only Misses.</li>
+    <li><b>Z-Moves:</b> each battle fills your gauge by 20%. When full, a Z-Move panel appears under the board: click a Pokémon that has a Z-Move, press its ⚡ button, then move it next to an enemy to attack with it. The gauge then resets.</li>
+    <li><b>Plates:</b> 6 cost points of plates, each usable once per duel, only before moving.</li>
+  </ul>
+  <button id="helpClose" class="primary">Got it</button>
+</div></div>
+
+<script src="app.js"></script>
+<script src="campaign_story.js"></script>
+<script src="campaign.js"></script>
+</body>
+</html>

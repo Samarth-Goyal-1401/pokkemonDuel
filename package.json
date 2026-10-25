@@ -1,0 +1,9 @@
+{
+  "name": "pokemon-duel-web",
+  "version": "1.0.0",
+  "description": "Browser-based multiplayer recreation of Pokémon Duel (Pokémon Comaster)",
+  "main": "server.js",
+  "scripts": { "start": "node server.js", "test": "node test/sim.js",
+    "test:abilities": "node test/abilities.js" },
+  "dependencies": { "ws": "^8.18.0" }
+}
